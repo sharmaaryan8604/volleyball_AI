@@ -16,11 +16,6 @@ frontend/.env.local
 # Data (keep structure, not raw files)
 data/*.csv
 
-# Models — serialized on Render's persistent disk, not in git
-models/
-*.pkl
-*.model
-
 # IDE
 .vscode/
 .idea/
