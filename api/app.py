@@ -305,7 +305,6 @@ def predict(req: PredictRequest):
         raise HTTPException(status_code=500, detail=f"Inference error: {e}")
 
     probs, markov_hit = blend_probs(xgb_p, lgb_p, markov_matrix, zone_prior, req)
-
     sorted_idx = np.argsort(probs)[::-1]
 
     top_zones = [
