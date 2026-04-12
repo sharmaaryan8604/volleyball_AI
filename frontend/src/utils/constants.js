@@ -10,24 +10,21 @@ export const LANDING_ZONES = [
 export const OUTSIDE_ZONE_LABEL = 'Outside'
 export const OUTSIDE_ZONE_KEY = 'outside'
 
-// Hitter zones 1-15 (attacker's side of the court)
-export const HITTER_ZONE_OPTIONS = Array.from({ length: 15 }, (_, i) => ({
-  value: i + 1,
-  label: `Zone ${i + 1}`,
+// Hitter zones 8-15 (attacker's side of the court for this UI flow)
+export const HITTER_ZONE_OPTIONS = Array.from({ length: 8 }, (_, i) => ({
+  value: i + 8,
+  label: `Zone ${i + 8}`,
 }))
 
-export const SET_LOCATION_OPTIONS = Array.from({ length: 8 }, (_, i) => ({
-  value: i + 1,
-  label: `Location ${i + 1}`,
-}))
-
-export const SET_TYPE_OPTIONS = [
-  { value: '', label: '— any —' },
-  { value: 'quick',     label: 'Quick' },
-  { value: 'pipe',      label: 'Pipe' },
-  { value: 'outside',   label: 'Outside' },
-  { value: 'opposite',  label: 'Opposite' },
-  { value: 'back_row',  label: 'Back Row' },
+export const SET_LOCATION_OPTIONS = [
+  { value: 1, label: 'Outside' },
+  { value: 2, label: 'Oppo' },
+  { value: 3, label: 'Quick' },
+  { value: 4, label: 'Bic' },
+  { value: 5, label: 'Dump' },
+  { value: 6, label: 'D-Ball' },
+  { value: 7, label: 'In' },
+  { value: 8, label: 'Blocked' },
 ]
 
 export const HIT_TYPE_OPTIONS = [

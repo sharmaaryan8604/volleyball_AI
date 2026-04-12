@@ -7,7 +7,6 @@ import { Select, Toggle, NumberInput } from '../components/FormControls'
 import {
   HITTER_ZONE_OPTIONS,
   SET_LOCATION_OPTIONS,
-  SET_TYPE_OPTIONS,
   HIT_TYPE_OPTIONS,
   SERVE_TYPE_OPTIONS,
 } from '../utils/constants'
@@ -18,12 +17,11 @@ const PASS_OPTS  = [{ value: 'bad', label: 'Bad' }, { value: 'good', label: 'Goo
 const BLOCK_OPTS = [{ value: false, label: 'No'  }, { value: true,  label: 'Yes'  }]
 
 const defaultForm = {
-  hitterZone:  4,
+  hitterZone:  8,
   setLocation: 1,
   passQuality: 'good',
   blockTouch:  false,
   numBlockers: 2,
-  setType:     '',
   hitType:     '',
   serveType:   '',
 }
@@ -72,9 +70,6 @@ export default function Predict() {
       <div className="predict-form-panel">
         <div className="page-header">
           <h1 className="page-title">Zone Predictor</h1>
-          <p className="page-sub">
-            XGBoost + LightGBM + Markov hybrid — predicts hit landing zones 1–15 and Outside
-          </p>
         </div>
 
         <div className="param-card">
@@ -83,14 +78,13 @@ export default function Predict() {
           <div className="param-grid">
             <Select
               label="Hitter Zone"
-              tag="1–15"
+              tag="8–15"
               options={HITTER_ZONE_OPTIONS.map(o => ({ value: o.value, label: o.label }))}
               value={form.hitterZone}
               onChange={v => set('hitterZone', parseInt(v, 10))}
             />
             <Select
-              label="Set Location"
-              tag="1–8"
+              label="Set Type"
               options={SET_LOCATION_OPTIONS.map(o => ({ value: o.value, label: o.label }))}
               value={form.setLocation}
               onChange={v => set('setLocation', parseInt(v, 10))}
@@ -115,12 +109,6 @@ export default function Predict() {
               onChange={v => set('numBlockers', v)}
               min={0}
               max={3}
-            />
-            <Select
-              label="Set Type"
-              options={SET_TYPE_OPTIONS}
-              value={form.setType}
-              onChange={v => set('setType', v)}
             />
 
             <Select

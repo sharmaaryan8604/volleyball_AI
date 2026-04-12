@@ -36,6 +36,7 @@
   display: flex;
   flex-direction: column;
   line-height: 1.1;
+  min-width: 0;
 }
 
 .sidebar__logo-vol {
@@ -46,12 +47,22 @@
   letter-spacing: 0.5px;
 }
 
-.sidebar__logo-ai {
+.sidebar__logo-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 18px;
+  font-size: 13px;
   color: var(--text-primary);
-  letter-spacing: 2px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+
+.sidebar__logo-subtitle {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
 }
 
 .sidebar__nav {

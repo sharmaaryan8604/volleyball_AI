@@ -78,9 +78,12 @@ export default function Heatmap({ predictions, loading }) {
       </div>
 
       <div className="heatmap-court">
+        {/* Net divider above the playable court */}
+        <div className="heatmap-divider" aria-label="Net" />
+
         <div className="heatmap-inside-shell">
           {/* Inside court: zones 1-15 */}
-          {LANDING_ZONES.map((row, ri) => (
+          {[...LANDING_ZONES].reverse().map((row, ri) => (
             <div key={ri} className="heatmap-row">
               {row.map(zone => {
                 const prob = probMap[zone] ?? 0
@@ -100,11 +103,9 @@ export default function Heatmap({ predictions, loading }) {
           ))}
         </div>
 
-        {/* Divider between inside and outside */}
-        <div className="heatmap-divider" />
         <div className="heatmap-outside-row">
           <HeatCell
-          zone="Outside"
+            zone="Outside"
             label="Outside"
             prob={probMap[OUTSIDE_ZONE_KEY] ?? 0}
             pct={maxProb ? (probMap[OUTSIDE_ZONE_KEY] ?? 0) / maxProb : 0}
@@ -145,11 +146,6 @@ export default function Heatmap({ predictions, loading }) {
         </div>
       )}
 
-      {!predictions && !loading && (
-        <p className="heatmap-placeholder">
-          Run a prediction to see landing zone probabilities
-        </p>
-      )}
     </div>
   )
 }

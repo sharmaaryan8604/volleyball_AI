@@ -16,21 +16,13 @@ const client = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 30000,
+  timeout: 120000,
 })
 
 /*
 Dropdown string → numeric mapping
 Matches backend encoding
 */
-
-const SET_TYPE_MAP = {
-  quick: 0,
-  pipe: 1,
-  outside: 2,
-  opposite: 3,
-  back_row: 4,
-}
 
 const HIT_TYPE_MAP = {
   joust: 0,
@@ -67,6 +59,16 @@ function cleanPayload(obj) {
   return cleaned
 }
 
+function normalizeHitterZone(value) {
+  const zone = Number(value)
+
+  if (!Number.isInteger(zone) || zone < 8 || zone > 15) {
+    throw new Error("Hitter location must be between 8 and 15.")
+  }
+
+  return zone
+}
+
 //
 // ─────────────────────────────────────────
 // Hybrid ML prediction endpoint
@@ -75,7 +77,7 @@ function cleanPayload(obj) {
 
 export async function predictLandingZones(params) {
   const payload = cleanPayload({
-    hitter_location: Number(params.hitterZone),
+    hitter_location: normalizeHitterZone(params.hitterZone),
 
     set_location: Number(params.setLocation),
 
@@ -87,11 +89,6 @@ export async function predictLandingZones(params) {
       typeof params.numBlockers === "string"
         ? parseInt(params.numBlockers, 10)
         : params.numBlockers,
-
-    set_type:
-      params.setType && SET_TYPE_MAP[params.setType] !== undefined
-        ? SET_TYPE_MAP[params.setType]
-        : undefined,
 
     hit_type:
       params.hitType && HIT_TYPE_MAP[params.hitType] !== undefined
@@ -119,7 +116,7 @@ export async function predictLandingZones(params) {
 
 export async function predictMarkov(params) {
   const payload = cleanPayload({
-    hitter_location: Number(params.hitterZone),
+    hitter_location: normalizeHitterZone(params.hitterZone),
 
     set_location: Number(params.setLocation),
 
@@ -131,11 +128,6 @@ export async function predictMarkov(params) {
       typeof params.numBlockers === "string"
         ? parseInt(params.numBlockers, 10)
         : params.numBlockers,
-
-    set_type:
-      params.setType && SET_TYPE_MAP[params.setType] !== undefined
-        ? SET_TYPE_MAP[params.setType]
-        : undefined,
 
     hit_type:
       params.hitType && HIT_TYPE_MAP[params.hitType] !== undefined
@@ -165,7 +157,7 @@ export async function runSimulation(params) {
 
     hitter_zone:
       params.hitterZone !== undefined
-        ? Number(params.hitterZone)
+        ? normalizeHitterZone(params.hitterZone)
         : undefined,
 
     pass_rating:

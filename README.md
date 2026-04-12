@@ -59,7 +59,7 @@ Make sure your repo contains **both** `api/` and `src/` and `data/`.
 
 | Field | Value |
 |---|---|
-| **Build Command** | `pip install -r api/requirements.txt` |
+| **Build Command** | `pip install -r requirements.txt` |
 | **Start Command** | `uvicorn api.app:app --host 0.0.0.0 --port $PORT` |
 | **Python Version** | 3.10 |
 
@@ -87,11 +87,11 @@ VITE_API_URL=https://your-volleyball-ai-api.onrender.com
 ### 2.2 Deploy to Vercel
 ```bash
 npm i -g vercel
-vercel --cwd frontend
+vercel
 ```
 Or via the Vercel dashboard:
 1. **New Project** → import your GitHub repo
-2. Set **Root Directory** to `frontend`
+2. Leave the **Root Directory** at the repo root so Vercel uses the root `vercel.json`
 3. Add Environment Variable: `VITE_API_URL` = your Render URL
 4. Deploy
 
@@ -104,7 +104,7 @@ Or via the Vercel dashboard:
 cd volleyball-ai
 python -m venv venv
 source venv/bin/activate   # Windows: venv\Scripts\activate
-pip install -r api/requirements.txt
+pip install -r requirements.txt
 uvicorn api.app:app --reload --port 8000
 ```
 API docs: http://localhost:8000/docs
@@ -173,5 +173,5 @@ App: http://localhost:5173
 → To fix: pre-train and serialize with `joblib.dump()`, load from file instead.
 
 **Frontend build fails on Vercel**
-→ Make sure `vercel.json` is in the repo root (not inside `frontend/`).
-→ Root directory in Vercel project settings should be `frontend`.
+→ Make sure `vercel.json` is in the repo root.
+→ Use the repo root as the Vercel project root so the config is picked up.

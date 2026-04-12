@@ -18,7 +18,8 @@ export default function Sidebar() {
         </div>
         <div className="sidebar__logo-text">
           <span className="sidebar__logo-vol">Volleyball</span>
-          <span className="sidebar__logo-ai">AI</span>
+          <span className="sidebar__logo-title">Attack Zone</span>
+          <span className="sidebar__logo-subtitle">Predictor</span>
         </div>
       </div>
 

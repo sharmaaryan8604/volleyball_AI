@@ -165,8 +165,8 @@ class PredictRequest(BaseModel):
     receive_location:    Optional[float] = None
     digger_location:     Optional[float] = None
     pass_land_location:  Optional[float] = None
-    hitter_location:     float = Field(..., ge=1, le=15, description="Hitter zone 1-15")
-    set_location:        float = Field(..., ge=1, le=8,  description="Set location 1-8")
+    hitter_location:     float = Field(..., ge=8, le=15, description="Hitter zone 8-15")
+    set_location:        float = Field(..., ge=1, le=8,  description="Encoded set type: outside=1, oppo=2, quick=3, bic=4, dump=5, d-ball=6, in=7, blocked=8")
     pass_rating:         int   = Field(..., ge=0, le=1,  description="Pass quality: 0=bad, 1=good")
     set_type:            Optional[float] = None
     hit_type:            Optional[float] = None
@@ -190,7 +190,7 @@ class PredictResponse(BaseModel):
     all_probs:       List[float]
 
 class SimulateRequest(BaseModel):
-    hitter_zone:  int   = Field(..., ge=1, le=15)
+    hitter_zone:  int   = Field(..., ge=8, le=15)
     pass_rating:  int   = Field(..., ge=0, le=1)
     set_loc:      int   = Field(..., ge=1, le=8)
     n:            int   = Field(1000, ge=100, le=10000)
