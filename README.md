@@ -197,69 +197,6 @@ Pass quality has a dramatic effect on predictability. For a Zone 11 hitter with 
 
 ---
 
-## 🚀 Deployment
-
-### Backend — FastAPI on Render
-
-1. Push the full repo to GitHub (include `data/` CSVs or use Git LFS)
-2. Create a new **Web Service** on [render.com](https://render.com)
-3. Connect your GitHub repo and set:
-
-| Field | Value |
-|---|---|
-| Build Command | `pip install -r requirements.txt` |
-| Start Command | `uvicorn api.app:app --host 0.0.0.0 --port $PORT` |
-| Python Version | 3.10 |
-| Environment Variable | `PYTHONPATH=.` |
-
-> **Cold start note**: Render free tier spins down after inactivity. First request triggers model training (~60–90s). Consider pre-training and serialising with `joblib` (see `pre_train.py`) or upgrading to Render Starter ($7/mo).
-
-### Frontend — React/Vite on Vercel
-
-```bash
-cd frontend
-cp .env.example .env.local
-# Set VITE_API_URL=https://your-render-url.onrender.com
-
-npm i -g vercel
-vercel
-```
-
-Or via the Vercel dashboard: import the repo, set `VITE_API_URL` as an environment variable, deploy.
-
----
-
-## 💻 Local Development
-
-### Backend
-
-```bash
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn api.app:app --reload --port 8000
-# Docs: http://localhost:8000/docs
-# Production API: https://volleyball-ai.onrender.com/docs
-```
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-# Create frontend/.env.local:
-# VITE_API_URL=http://localhost:8000
-npm run dev
-# App: http://localhost:5173
-```
-
-### Run Training Pipeline
-
-```bash
-python main.py
-```
-
----
 
 ## 🔌 API Reference
 
@@ -302,21 +239,7 @@ python main.py
 
 ---
 
-## 🛠️ Troubleshooting
 
-**`ModuleNotFoundError: src`**  
-→ Add `PYTHONPATH=.` as an environment variable on Render.
-
-**CORS errors in browser**  
-→ Backend uses `allow_origins=["*"]`. Verify the Render URL matches `VITE_API_URL` exactly (no trailing slash).
-
-**Model takes too long on first request**  
-→ Expected on Render free tier (cold start). Run `pre_train.py` to serialise models with `joblib` so they load from disk instead of training from scratch.
-
-**Frontend build fails on Vercel**  
-→ Ensure `vercel.json` is in the repo root. Set the Vercel project root to the repo root (not `frontend/`).
-
----
 
 ## 📦 Tech Stack
 
@@ -335,8 +258,5 @@ python main.py
 
 ## 📄 License
 
-MIT
 
----
 
-*For a full technical breakdown of every component — math, code, hyperparameter rationale, and engineering fixes — see the [Full Technical Explanation PDF](./volleyball_ai_explained.pdf).*
