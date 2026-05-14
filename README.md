@@ -23,10 +23,6 @@ A full-stack machine learning system that predicts **where a volleyball attack w
 | Mean Reciprocal Rank (MRR) | **0.701** |
 | Expected Calibration Error (ECE) | **0.0183** |
 | Log Loss | 1.7259 |
-| Lift over majority baseline | **+49.73pp** |
-| Markov hit rate | 100% (3,289/3,289) |
-| Training samples | 14,660 |
-| Validation samples | 3,702 |
 | Features used | 32 |
 | Markov states learned | 143 |
 
